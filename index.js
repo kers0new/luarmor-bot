@@ -43,6 +43,22 @@ client.on('interactionCreate', async interaction => {
     if (interaction.customId === 'generate_script') interaction.reply('Use `/genscript` to generate a script!');
   }
 });
-
 // Login
 client.login(process.env.TOKEN);
+
+const commands = [
+  // … all your other commands
+  new SlashCommandBuilder().setName('generatekey').setDescription('Generate a Luarmor key'),
+  new SlashCommandBuilder().setName('redeemkey').setDescription('Redeem a key').addStringOption(opt => opt.setName('key').setDescription('Enter key').setRequired(true)),
+  new SlashCommandBuilder().setName('mypanel').setDescription('Open Luarmor panel'),
+  
+  // ✅ Add this at the end:
+  new SlashCommandBuilder()
+    .setName('resethwid')
+    .setDescription('Reset HWID for a user (admin only)')
+    .addUserOption(option => 
+      option.setName('user')
+            .setDescription('The user to reset HWID for')
+            .setRequired(true)
+    )
+].map(cmd => cmd.toJSON());
